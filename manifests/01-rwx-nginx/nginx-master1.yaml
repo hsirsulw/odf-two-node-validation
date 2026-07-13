@@ -13,7 +13,8 @@ spec:
       labels:
         app: nginx-master1
     spec:
-      nodeName: master1
+      nodeSelector:
+        kubernetes.io/hostname: master1.rhtnf.tnf.local
       containers:
         - name: nginx
           image: registry.k8s.io/nginx-slim:0.26

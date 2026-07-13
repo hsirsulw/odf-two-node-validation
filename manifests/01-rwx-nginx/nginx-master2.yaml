@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-master2
+  namespace: odf-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-master2
+  template:
+    metadata:
+      labels:
+        app: nginx-master2
+    spec:
+      nodeName: master2
+      containers:
+        - name: nginx
+          image: registry.k8s.io/nginx-slim:0.26
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: shared-data
+              mountPath: /shared
+      volumes:
+        - name: shared-data
+          persistentVolumeClaim:
+            claimName: cephfs-rwx-pvc

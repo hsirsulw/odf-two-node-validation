@@ -37,7 +37,6 @@ odf-two-node-validation/
 ## Phases
 
 - 01-rwx-nginx: Validate CephFS shared storage between two pods.
-- 02-rwx-busybox: Validate RWX behavior with a simple shared file test.
 - 03-timescaledb: Validate RBD-backed database workloads.
 - 04-sensor-generator: Generate continuous writes into the database.
 - 05-failover: Capture failover and recovery steps.

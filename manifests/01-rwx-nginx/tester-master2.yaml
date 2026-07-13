@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tester-master2
+  namespace: odf-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tester-master2
+  template:
+    metadata:
+      labels:
+        app: tester-master2
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: master2.rhtnf.tnf.local
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: tester
+          image: registry.access.redhat.com/ubi9/ubi-minimal
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          command:
+            - /bin/sh
+            - -c
+            - sleep infinity
+          volumeMounts:
+            - name: shared-data
+              mountPath: /shared
+      volumes:
+        - name: shared-data
+          persistentVolumeClaim:
+            claimName: cephfs-rwx-pvc

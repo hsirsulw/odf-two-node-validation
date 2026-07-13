@@ -4,6 +4,7 @@ metadata:
   name: timescaledb
   namespace: odf-demo
 spec:
+  clusterIP: None
   selector:
     app: timescaledb
   ports:

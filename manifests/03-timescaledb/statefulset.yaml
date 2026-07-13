@@ -14,9 +14,11 @@ spec:
       labels:
         app: timescaledb
     spec:
+      securityContext:
+        fsGroup: 1000850000
       containers:
         - name: timescaledb
-          image: timescale/timescaledb:latest-pg16
+          image: image-registry.openshift-image-registry.svc:5000/odf-demo/timescaledb:2.17.2
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -32,6 +34,8 @@ spec:
               value: postgres
             - name: POSTGRES_DB
               value: postgres
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
           ports:
             - containerPort: 5432
           resources:
